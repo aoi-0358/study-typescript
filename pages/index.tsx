@@ -1,13 +1,20 @@
 import type { NextPage } from "next";
 
-let obj3: Record<string, unknown> = {
-  a: 1,
-  b: "foo",
+type Foo = {
+  a: number;
+  b: string;
 };
-let obj4: { [key: string]: { foo: unknown } } = {
-  a: {
-    foo: 1,
-  },
+
+type Bar = {
+  c: boolean;
+};
+
+type FooBar = Foo & Bar;
+
+const Test: FooBar = {
+  a: 1,
+  b: "",
+  c: true,
 };
 
 const Home: NextPage = () => {
