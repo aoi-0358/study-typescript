@@ -1,18 +1,8 @@
+import { TwitterCard } from "@/Comments/TwitterCard";
 import type { NextPage } from "next";
 
-type Animals = "dog" | "cat";
-
-type Foo = {
-  [key in Animals]: string;
-};
-
-const foo: Foo = {
-  dog: "t",
-  cat: "f",
-};
-
 const Home: NextPage = () => {
-  return <div>test</div>;
+  return <TwitterCard />;
 };
 
 export default Home;
