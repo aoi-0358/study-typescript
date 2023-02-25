@@ -1,32 +1,15 @@
 import type { NextPage } from "next";
 
+type Animals = "dog" | "cat";
+
 type Foo = {
-  a: number;
-  b: string;
+  [key in Animals]: string;
 };
 
-type Bar = {
-  a: string;
-  c: boolean;
+const foo: Foo = {
+  dog: "t",
+  cat: "f",
 };
-//Union Typesは｜でがっちゃんこしてFooBarに入れてる
-type FooBar = Foo | Bar;
-
-const test: FooBar = {
-  a: 1,
-  b: "",
-  c: true,
-};
-
-// if文で型を絞り込んでいる
-if("b" in test) {
-  test.a.toFixed
-} else {
-  test.a
-}
-
-
-
 
 const Home: NextPage = () => {
   return <div>test</div>;
