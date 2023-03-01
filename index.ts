@@ -1,13 +1,9 @@
-import { Key } from "react";
+export const color = "red";
 
-export const obj = {
-  foo: "foo",
-  bar: "bar",
+const theme = {
+  color: "red" as const,
+  //as constでstringLiteralTypeになっている
+  //const assertion　自分が定義した型を正とする
 };
 
-type obj = typeof obj;
-type key = keyof obj;
 
-// type key = keyof typeof obj;
-
-// const key: key = "bar";
