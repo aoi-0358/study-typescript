@@ -1,3 +1,13 @@
-export function doule(x: number): number {
-  return x * 2;
-}
+import { Key } from "react";
+
+export const obj = {
+  foo: "foo",
+  bar: "bar",
+};
+
+type obj = typeof obj;
+type key = keyof obj;
+
+// type key = keyof typeof obj;
+
+// const key: key = "bar";
