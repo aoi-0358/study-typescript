@@ -1,16 +1,16 @@
-type UserA = { name: string };
-type UserB = { name: string; nickName: string };
+type UserA = { name: string; lang: "ja" };
+type UserB = { name: string; lang: "en" };
+
 
 export const foo = (value: UserA | UserB) => {
-  if ("nickName" in value) {
+  if (value.lang === "ja") {
     return value;
   }
 
   return value;
 };
 
-// in演算子をつかったType Guard
-// ("nickName" in value) でvalueの中に"nickName"があるかを検査している
-// 一個のreturn value;でUserBが絞り込まれていて以後はUserBの可能性はないので、下の return value;ではUserA
+// タグ付きUnion Types頻出する
+// (value.lang === "ja")が"ja"であれば１個目のreturn value;がUserAで早期returnしてるから下のreturn value;でUserB
 // 
 
