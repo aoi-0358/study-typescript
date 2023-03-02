@@ -1,22 +1,9 @@
-export type Foo<T extends string | number> = {
-  value: T;
-};
+export function foo<T>(arg: T) {
+  return { value: arg };
+}
+const foo1 = foo<number[]>([1, 4]);
 
-const foo1: Foo<string> = {
-  value: "",
-};
-
-const foo2: Foo<number> = {
-  value: 9,
-};
-
-// extendsによる型制約　頻出
-// １の　<extends 型>　で初期値を設定して後から別の型を入れられないようにする
-
-
-// エラー例　
-// const foo2: Foo<boolean> = {
-//   value: 9,
-// };
-// １の<T extends string | number>で初期値を設定してないのでエラー
-
+// 関数のGenerics頻出
+// １の<T>が(arg: T)の型として使われているので
+// ４でfoo<number[]>の配列と打ったらnumberの配列自体が(arg: T)として設定されるから
+// ４の([1, 4]);で引数として配列を指定しなければいけない
