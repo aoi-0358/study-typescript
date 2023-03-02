@@ -1,15 +1,16 @@
-export const foo = (value?: string) => {
-  if (!value) {
+type UserA = { name: string };
+type UserB = { name: string; nickName: string };
+
+export const foo = (value: UserA | UserB) => {
+  if ("nickName" in value) {
     return value;
   }
 
   return value;
 };
 
-//(!value)は論理否定演算子で頻出する
-//(!value)がファルシイな値だった場合に逆のtreuになってif文が実行される
-//こうすることで下のreturn value;でvalue: stringになってunduifindの可能性を消せる
-//reactで上でpropsが渡ってきた時にそのpropsの値がオプショナルだった場合にこれを使ってunduifindの可能性を消して、下のreturnでコンポネートを書く
-//
-//
+// in演算子をつかったType Guard
+// ("nickName" in value) でvalueの中に"nickName"があるかを検査している
+// 一個のreturn value;でUserBが絞り込まれていて以後はUserBの可能性はないので、下の return value;ではUserA
+// 
 
