@@ -1,16 +1,20 @@
-export type Foo<T> = {
-  value: T;
-};
-const foo: Foo<string> = {
-  value: "aaa",
-};
-// 外部パッケージの型定義がGenericsが使われているので理解してないとtypescript開発は厳しい
-// Genericsは型の定義を遅延できるもの
-// 後で型を決定できることで色々なケースに対応できる
-// １〜２ Foo<T>とvalue: T;と記述して
-// ４のFoo<>に後で決定したい型を入れる、５を文字列以外にするとエラー
+import { type } from "os";
 
-// ４〜５別の例
-//  const foo: Foo<number> = {
-//   value: 0,
-// };　これでもOK
+export type User<T> = {
+  name: string;
+  state: T;
+};
+
+type Japanese = User<"北海道" | "長野">;
+type American = User<"CA" | "NY">;
+// ここで初めて型が決定する
+
+const user1: Japanese = {
+  name: "田村",
+  state: "北海道",
+};
+
+const user2: American = {
+  name: "james",
+  state: "CA",
+};
