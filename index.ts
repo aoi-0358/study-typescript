@@ -1,20 +1,22 @@
-import { type } from "os";
-
-export type User<T> = {
-  name: string;
-  state: T;
+export type Foo<T extends string | number> = {
+  value: T;
 };
 
-type Japanese = User<"北海道" | "長野">;
-type American = User<"CA" | "NY">;
-// ここで初めて型が決定する
-
-const user1: Japanese = {
-  name: "田村",
-  state: "北海道",
+const foo1: Foo<string> = {
+  value: "",
 };
 
-const user2: American = {
-  name: "james",
-  state: "CA",
+const foo2: Foo<number> = {
+  value: 9,
 };
+
+// extendsによる型制約　頻出
+// １の　<extends 型>　で初期値を設定して後から別の型を入れられないようにする
+
+
+// エラー例　
+// const foo2: Foo<boolean> = {
+//   value: 9,
+// };
+// １の<T extends string | number>で初期値を設定してないのでエラー
+
