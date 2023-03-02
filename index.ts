@@ -1,19 +1,55 @@
-export const foo = <T>(arg: T) => {
-  return { value: arg };
+export const foo = <T extends string | number>(arg: T) => {
+  if (typeof arg === "string") {
+    return { value: arg.toUpperCase() };
+  }
+  return { value: arg.toFixed };
 };
-const foo1 = foo("");
-const foo2 = foo(0);
-const foo3 = foo([false]);
 
-// Generics 暗黙的な型解決について　頻出
-// ４〜６のfooの後の引数(""); (0); (false);の型を自動で推論してくれる
-// foo1をホバーするとvalue: stringになって進めてくれる
-// foo3ならvalue: boolean[]の配列になって推論が効いているのがわかる
-// この推論のおかげで使う側か毎回、型を指定しなくても良くなって便利
+//　関数のGenerics　extendsによる型制約　超重要！！！
 
-// どんな時に使うのか？
-// Nullableかもしれない場合（nullになりうる値のこと）
-// １のconst foo1 = foo("");でカラ文字を指定してるが、変数とかが入ってくるかもしれないと仮定それがNullableの場合とも仮定
-// 例
-//　1をconst foo1 = foo<string | null>("");
-// 引数に何が入るかわからない
+// export const foo = <T>(arg: T) => {
+// return { value: arg };
+// };
+// このコードだとargが中でどんな型になってるのかかわからない
+// T自体がなに分からない、argは型制約がないとunknownになる
+// unknownになると中で何かしらのメゾットが呼び出せない問題がある
+// もし、(arg: T)にstringがくるとわかっていたらstringのメゾットが使える
+
+// どうやってstringを定義するのか？
+// export const foo = <T extends string>(arg: T) => {
+//   arg.toUpperCase
+//   return { value: arg };
+// };
+// <T extends string>と書けば(arg: T)はstringを満たすと証明できstringがもつメゾットにアクセスできる
+// 実際の開発ではarg.toUpperCaseにargを使っていろんな記述をかくことになる
+// なのでargがunknownの状態だったら不都合が生じるのでextendsによる型制約は必須
+
+// UnionTypesで型を定義した場合
+// export const foo = <T extends string | number>(arg: T) => {
+//   arg.toUpperCase
+//   return { value: arg };
+// };
+//　↑はtoUpperCaseで（プロパティ 'toUpperCase' は型 'number' に存在しません）のエラーになる
+// なぜか？
+// (arg: T)とゆうのはnumberかstring両方の可能性かあることになる
+// なのでnumberだった場合toUpperCaseは存在しないからアクセスできなくてエラー
+
+// なのでif文を使って型を絞り込んで解決
+// if (typeof arg === "string") {
+//   arg.toUpperCase;
+// }
+// return { value: arg };
+// };
+// (typeof arg === "string")でargがstringの場合は
+// arg.toUpperCase;が使える
+
+// 以下のように記述すると５０でreturnしているのでstringのメゾットが使える
+// ５２はif文の後でnumberの制約を満たす型になるので、numberのメゾットtoFixedが使える
+// export const foo = <T extends string | number>(arg: T) => {
+//   if (typeof arg === "string") {
+//     return { value: arg.toUpperCase() };
+//   }
+//   return { value: arg.toFixed };
+// };
+
+
