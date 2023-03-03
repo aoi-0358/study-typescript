@@ -1,16 +1,14 @@
-export const getProperty = <T, K extends keyof T>(obj: T, key: K) => {
-  return obj[key];
+export const foo = (id: string, age: number) => {
+  return 0;
 };
-// export const getProperty = <T, K>(obj: T, key: K) => {
-//   return obj[key];
-// };
-// オブジェクトを第１引数にわたして、そのオブジェクトのkeyを第二引数にわたしてそのvalueを返すコード
-// obj[key]でエラー（型 'K' はインデックスの種類 'T' に使用できません。）
-// 型があってないっと仮定
 
-// Lookup Typesで解決
-// export const getProperty = <T, K extends keyof T>(obj: T, key: K) => {
-//   return obj[key];
-// };
-// 第１引数に何かしらのオブジェクトを入れることになるが、keyofでTと一緒にしてる
-// K extendには必ずオブジェクトのkeyが入るようになってLookup Typesがはたらく
+type Foo = ReturnType<typeof foo>;
+
+// Utility Types
+// 上のコード５ではReturnTypeと記述することで公式が、標準で型を準備してくれてるようになる
+// Fooをホバーすると　type Foo = number　になっている
+// ２をreturn "aaa";の文字列に変えると
+// Fooはstringになる
+
+// 個人的には初学者である自分が下手に型アノテーションで定義するより
+// Utility Typesに頼ったほうが変な混乱を生まないのかなと思うからありがたい
