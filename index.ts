@@ -4,15 +4,20 @@ export type User = {
   country?: "US" | "UK" | "JP";
 };
 
-type ReadonlyUser = Readonly<User>;
+type PickUser = Pick<User, "name" | "country">;
 
-const user: ReadonlyUser = {
+const user: PickUser = {
   name: "iii",
-  age: 2,
+  country: "UK",
 };
 
-user.age = 30;
+// UtilityTypes Pickについて　頻出
+// 特定のプロパティを隠してそれ以外のプロパティを取得する方法
+// 今回の場合消したい１１のageがエラーになっている
+// ７の　type PickUser = Pick<User, "name" | "country">;　と記述
 
-// Utility Typesの Readonly
-// １０と１１のプロパティの値を１４で変更されたくないとき（Utility Types）にしたい時に使う
-// なので１４のageはエラー
+// ９の　PickUserをホバーすると
+// type PickUser = {
+//   name: string;
+//   country?: "US" | "UK" | "JP" | undefined;
+// ageが取得できてないのがわかる
