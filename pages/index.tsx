@@ -1,27 +1,33 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { ChangeEventHandler, useState } from "react";
+
+type Todo = {
+  id: number;
+  label: string;
+  isDone: boolean;
+};
 
 const Home: NextPage = () => {
   const [text, setText] = useState("");
-  const [todos, setTodos] = useState([]);
-  const input = (e) => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const input: ChangeEventHandler<HTMLInputElement> = (e) => {
     setText(e.target.value);
   };
-  const add = (e) => {
+  const add = () => {
     setTodos((prevTodos) => {
       return [...prevTodos, { id: Math.random(), label: text, isDone: false }];
     });
     setText("");
   };
 
-  const toggle = (e) => {
+  const toggle: ChangeEventHandler<HTMLInputElement> = (e) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
         if (todo.id === Number(e.target.value)) {
           return { ...todo, isDone: !todo.isDone };
         }
-        return Home;
-        todo;
+        return todo;
       });
     });
   };
