@@ -1,14 +1,18 @@
-export const foo = (id: string, age: number) => {
-  return 0;
+export type User = {
+  name: string;
+  age: number | null;
+  country?: "US" | "UK" | "JP";
 };
 
-type Foo = ReturnType<typeof foo>;
+type ReadonlyUser = Readonly<User>;
 
-// Utility Types
-// 上のコード５ではReturnTypeと記述することで公式が、標準で型を準備してくれてるようになる
-// Fooをホバーすると　type Foo = number　になっている
-// ２をreturn "aaa";の文字列に変えると
-// Fooはstringになる
+const user: ReadonlyUser = {
+  name: "iii",
+  age: 2,
+};
 
-// 個人的には初学者である自分が下手に型アノテーションで定義するより
-// Utility Typesに頼ったほうが変な混乱を生まないのかなと思うからありがたい
+user.age = 30;
+
+// Utility Typesの Readonly
+// １０と１１のプロパティの値を１４で変更されたくないとき（Utility Types）にしたい時に使う
+// なので１４のageはエラー
