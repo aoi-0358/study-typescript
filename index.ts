@@ -4,20 +4,18 @@ export type User = {
   country?: "US" | "UK" | "JP";
 };
 
-type PickUser = Pick<User, "name" | "country">;
+type OmitUser = Omit<User, "age">;
 
-const user: PickUser = {
+const user: OmitUser = {
   name: "iii",
   country: "UK",
 };
 
-// UtilityTypes Pickについて　頻出
-// 特定のプロパティを隠してそれ以外のプロパティを取得する方法
-// 今回の場合消したい１１のageがエラーになっている
-// ７の　type PickUser = Pick<User, "name" | "country">;　と記述
-
-// ９の　PickUserをホバーすると
-// type PickUser = {
+// UtilityTypes Omit 頻出
+// Pickの逆でいらないプロパティを指定する
+// OmitUserをホバーすると
+// type OmitUser = {
 //   name: string;
 //   country?: "US" | "UK" | "JP" | undefined;
+// }
 // ageが取得できてないのがわかる
